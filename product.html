@@ -10,39 +10,39 @@
 <style>
 /* CHARTE GRAPHIQUE COMPATIBLE : Tech, Apple & Bitcoin */
 :root {
-    --bg-dark: #0b0f19; /* Fond sombre bleuté futuriste */
-    --card-bg: rgba(255, 255, 255, 0.03); /* Effet verre / Glassmorphism */
-    --card-border: rgba(255, 255, 255, 0.08);
-    --btc-orange: #f7931a; /* Orange Bitcoin officiel */
-    --iphone-blue: #0071e3; /* Bleu Apple */
-    --tech-gradient: linear-gradient(135deg, #f7931a, #ff5e62, #0071e3);
-    --text-white: #f5f5f7; /* Blanc Apple */
-    --text-gray: #86868b; /* Gris Apple */
-    --success: #30d158; /* Vert iOS */
-    --error: #ff453a; /* Rouge iOS */
+    --bg-dark: #090b11;
+    --bg-gradient: linear-gradient(180deg, #121622 0%, #06070a 100%);
+    --card-bg: #121520;
+    --card-border: rgba(255, 255, 255, 0.05);
+    --btc-orange: #ff6a3d;
+    --iphone-blue: #9a4eff;
+    --tech-gradient: linear-gradient(135deg, #ff6a3d 0%, #9a4eff 100%);
+    --text-white: #ffffff;
+    --text-gray: #6b7588;
+    --success: #10b981;
+    --error: #ff4d6d;
 }
 
 * {
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     letter-spacing: -0.022em;
 }
 
 body {
     margin: 0;
     background-color: var(--bg-dark);
+    background-image: var(--bg-gradient);
+    background-attachment: fixed;
     color: var(--text-white);
     padding-bottom: 100px;
-    background-image: radial-gradient(circle at 80% 20%, rgba(247, 147, 26, 0.1), transparent 50%),
-                      radial-gradient(circle at 20% 80%, rgba(0, 113, 227, 0.1), transparent 50%);
-    background-attachment: fixed;
 }
 
 /* HEADER */
 .header {
     padding: 25px 20px;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: 800;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -64,11 +64,11 @@ body {
     padding: 10px 24px;
     border-radius: 14px;
     border: 1px solid var(--card-border);
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(0, 0, 0, 0.2);
     color: var(--text-gray);
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 700;
     transition: all 0.25s ease;
 }
 
@@ -76,8 +76,7 @@ body {
     background: var(--tech-gradient);
     border-color: transparent;
     color: #ffffff;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(247, 147, 26, 0.2);
+    box-shadow: 0 4px 12px rgba(255, 106, 61, 0.2);
 }
 
 /* CONTAINER PRINCIPAL */
@@ -87,15 +86,14 @@ body {
     margin: 0 auto;
 }
 
-/* CARDS STRUCTURÉES EN VERRE CORROBORÉ */
+/* CARDS STRUCTURÉES */
 .card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 24px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
 .top {
@@ -119,7 +117,7 @@ body {
 }
 
 .info div { margin-bottom: 6px; }
-.info b { color: var(--text-white); font-weight: 600; }
+.info b { color: var(--text-white); font-weight: 700; }
 
 /* BLOCS DE RENDEMENT TECHNIQUES */
 .bottom {
@@ -130,14 +128,15 @@ body {
 }
 
 .box {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(0, 0, 0, 0.2);
     padding: 12px 8px;
     border-radius: 14px;
-    font-size: 12px;
+    font-size: 11px;
     flex: 1;
     text-align: center;
     color: var(--text-gray);
     border: 1px solid var(--card-border);
+    font-weight: 600;
 }
 
 .box b {
@@ -145,9 +144,10 @@ body {
     margin-top: 4px;
     font-size: 13px;
     color: var(--btc-orange);
+    font-weight: 800;
 }
 
-/* BOUTON D'ACTION PROFESSIONNEL RÉPÉTABLE */
+/* BOUTON D'ACTION */
 .btn {
     margin-top: 18px;
     width: 100%;
@@ -155,10 +155,9 @@ body {
     border: none;
     border-radius: 16px;
     background: var(--tech-gradient);
-    background-size: 200% auto;
     color: #ffffff;
-    font-weight: 600;
-    font-size: 15px;
+    font-weight: 800;
+    font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     cursor: pointer;
@@ -166,8 +165,8 @@ body {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(247, 147, 26, 0.2);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(255, 106, 61, 0.2);
 }
 
 .btn svg {
@@ -176,66 +175,49 @@ body {
     fill: #ffffff;
 }
 
-.btn:hover:not(:disabled) {
-    background-position: right center;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(0, 113, 227, 0.3);
+.btn:active:not(:disabled) {
+    transform: scale(0.98);
 }
 
 .btn:disabled {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--text-gray);
-    border: 1px solid var(--card-border);
-    box-shadow: none;
+    background: #2a2e3d !important;
+    color: var(--text-gray) !important;
+    border: 1px solid rgba(255,255,255,0.05) !important;
+    box-shadow: none !important;
     cursor: not-allowed;
 }
 
-/* ACCUEIL DOCK SYSTÈME APPLE */
-.menu {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(13, 22, 49, 0.85);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    display: flex;
+/* BARRE DE NAVIGATION FINE BTC_IPHONE */
+.menu-bottom {
+    position: fixed; 
+    bottom: 0; 
+    width: 100%;
+    background: #0b0e17; 
+    display: flex; 
     justify-content: space-around;
-    padding: 12px 0 25px;
-    border-top: 1px solid var(--card-border);
+    padding: 12px 0 28px; 
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     z-index: 1000;
 }
 
-.menu div {
-    text-align: center;
-    font-size: 11px;
-    font-weight: 500;
-    cursor: pointer;
-    color: var(--text-gray);
-    flex: 1;
+.menu-item-nav { 
+    color: var(--text-gray); 
+    text-align: center; 
+    font-size: 11px; 
+    text-decoration: none; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
-    transition: color 0.25s;
+    gap: 4px;
+    flex: 1;
+    cursor: pointer;
+    font-weight: 600;
 }
 
-.menu div svg {
-    width: 22px;
-    height: 22px;
-    fill: var(--text-gray);
-    transition: fill 0.25s;
-}
+.menu-item-nav.active { color: var(--btc-orange); }
+.menu-item-nav span { display: block; font-size: 20px; font-style: normal; }
 
-.active-menu {
-    color: var(--btc-orange) !important;
-}
-
-.active-menu svg {
-    fill: var(--btc-orange) !important;
-}
-
-/* NOTIFICATIONS STYLE NOTIFICATION iOS */
+/* NOTIFICATIONS iOS */
 .toast {
     position: fixed;
     top: -60px;
@@ -244,7 +226,7 @@ body {
     padding: 14px 28px;
     border-radius: 20px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     z-index: 9999;
@@ -256,9 +238,9 @@ body {
 }
 
 .toast.show { opacity: 1; top: 30px; }
-.toast.success { background: rgba(48, 209, 88, 0.9); border: 1px solid rgba(48, 209, 88, 0.3); }
-.toast.error { background: rgba(255, 69, 58, 0.9); border: 1px solid rgba(255, 69, 58, 0.3); }
-.toast.info { background: rgba(0, 113, 227, 0.9); border: 1px solid rgba(0, 113, 227, 0.3); }
+.toast.success { background: rgba(16, 185, 129, 0.95); border: 1px solid rgba(16, 185, 129, 0.3); }
+.toast.error { background: rgba(255, 77, 109, 0.95); border: 1px solid rgba(255, 77, 109, 0.3); }
+.toast.info { background: rgba(154, 78, 255, 0.95); border: 1px solid rgba(154, 78, 255, 0.3); }
 </style>
 </head>
 
@@ -272,27 +254,14 @@ body {
 </div>
 
 <div class="container" id="plans">
-    <div style="text-align:center; padding:50px; color: var(--text-gray);">Chargement des plans...</div>
+    <div style="text-align:center; padding:50px; color: var(--text-gray);">Chargement des machines de minage...</div>
 </div>
 
-<!-- NAVIGATION PRINCIPALE À VECTEURS COMPACTS -->
-<div class="menu">
-    <div onclick="location.href='dashboard.html'">
-        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        Accueil
-    </div>
-    <div class="active-menu">
-        <svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
-        Produit
-    </div>
-    <div onclick="location.href='team.html'">
-        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 1.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-        Equipe
-    </div>
-    <div onclick="location.href='account.html'">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-        Profil
-    </div>
+<div class="menu-bottom">
+    <div class="menu-item-nav" onclick="location.href='dashboard.html'"><span>🏠</span>Accueil</div>
+    <div class="menu-item-nav active"><span>🎓</span>Investir</div>
+    <div class="menu-item-nav" onclick="location.href='team.html'"><span>👥</span>Équipe</div>
+    <div class="menu-item-nav" onclick="location.href='account.html'"><span>👤</span>Profil</div>
 </div>
 
 <div id="toast" class="toast"></div>
@@ -303,13 +272,19 @@ const supabaseClient = supabase.createClient(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inljc3dwZHlkc2dvcXBsa3F0cHNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NjY4MTcsImV4cCI6MjA5MDU0MjgxN30.67bBMdHtcGFIJuZuY_Xd4hBN4hj86JjHVXGN3oPbKMA"
 );
 
-const images = ["a1.jpg", "a2.jpg", "a3.jpg"];
+// Liens des nouvelles images générées pour les produits
+const images = [
+    "https://lh3.googleusercontent.com/d/1_9iN1D7v4Z50nIor-e0P8S26_A6NfC7O", 
+    "https://lh3.googleusercontent.com/d/1A-E03A1wM50N-68Xb6yG8r9P0C4_zFwV", 
+    "https://lh3.googleusercontent.com/d/1N3_A6P7C4z5V0N68xb6_yG8r9P0C4zFw"
+];
+
 let ownedVIPs = [];
 let allPlans = [];
 let currentFilter = "all";
 
 function format(x) {
-    return Number(x).toLocaleString() + " FCFA";
+    return Number(x).toLocaleString() + " XOF";
 }
 
 function showToast(message, type = "info") {
@@ -320,12 +295,11 @@ function showToast(message, type = "info") {
 }
 
 async function loadUserVIPs(user_id) {
-    const { data, error } = await supabaseClient
+    const { data } = await supabaseClient
         .from("user_vips")
         .select("vip_id")
         .eq("user_id", user_id);
     
-    // Garde la trace des IDs achetés pour le filtre "Mes Produits"
     if (data) ownedVIPs = data.map(v => v.vip_id);
 }
 
@@ -338,7 +312,7 @@ async function loadPlans() {
 
     await loadUserVIPs(user_id);
 
-    const { data, error } = await supabaseClient
+    const { data } = await supabaseClient
         .from("vip_plans")
         .select("*")
         .order("price", { ascending: true });
@@ -368,11 +342,14 @@ function renderPlans() {
         let img = images[index % images.length];
         let owned = ownedVIPs.includes(plan.id);
         let totalIncome = plan.daily_income * plan.cycle_days;
+        
+        // Vérification de la colonne d'activation (par défaut true si manquante)
+        let isPlanActive = plan.is_active !== false && plan.is_active !== "false";
 
         let card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `
-            <div class="top">
+            <div class="top" style="${!isPlanActive ? 'opacity: 0.5;' : ''}">
                 <img src="${img}" class="vip-img">
                 <div class="info">
                     <div>Prix : <b>${format(plan.price)}</b></div>
@@ -380,15 +357,15 @@ function renderPlans() {
                     <div>Cycle : <b>${plan.cycle_days} jours</b></div>
                 </div>
             </div>
-            <div class="bottom">
+            <div class="bottom" style="${!isPlanActive ? 'opacity: 0.5;' : ''}">
                 <div class="box">Machine<b>${plan.name}</b></div>
                 <div class="box">Total<b>${format(totalIncome)}</b></div>
                 <div class="box">Profit<b>+${Math.round((totalIncome / plan.price) * 100)}%</b></div>
             </div>
-            <!-- Le bouton reste Actif même si déjà acquis, permettant l'achat multiple -->
-            <button class="btn" id="btn-${plan.id}" onclick="buy('${plan.id}')">
-                <span>${owned ? "Re-souscrire (Acheter à nouveau)" : "Investir maintenant"}</span>
-                <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>
+            
+            <button class="btn" id="btn-${plan.id}" onclick="buy('${plan.id}')" ${!isPlanActive ? "disabled" : ""}>
+                <span>${!isPlanActive ? "Bientôt disponible" : (owned ? "Re-souscrire (Acheter à nouveau)" : "Investir maintenant")}</span>
+                ${isPlanActive ? `<svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>` : ''}
             </button>
         `;
         container.appendChild(card);
@@ -419,22 +396,22 @@ async function buy(vip_id) {
     if (error) {
         btn.disabled = false;
         btn.innerHTML = `<span>Investir maintenant</span><svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>`;
-        if (error.message.includes("solde")) {
-            showToast("Solde insuffisant pour finaliser cet achat.", "error");
+        
+        // Gestion stricte du texte d'erreur pour le solde insuffisant
+        if (error.message.toLowerCase().includes("solde") || error.message.toLowerCase().includes("balance")) {
+            showToast("Solde insuffisant", "error");
         } else {
             showToast("Erreur système. Réessayez.", "error");
         }
         return;
     }
 
-    // Ajoute à l'historique local et réinitialise l'état du bouton pour permettre de cliquer à nouveau
     if (!ownedVIPs.includes(vip_id)) {
         ownedVIPs.push(vip_id);
     }
     
     showToast("Investissement validé avec succès !", "success");
     
-    // Léger délai pour rafraîchir l'interface proprement
     setTimeout(() => {
         btn.disabled = false;
         renderPlans();
