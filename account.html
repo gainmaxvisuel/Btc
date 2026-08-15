@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTC_IPHONE | Profil & Portefeuille</title>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+<style>
+/* PALETTE DE COULEURS BTC_IPHONE */
+:root {
+    --bg-dark: #090b11;
+    --bg-gradient: linear-gradient(180deg, #121622 0%, #06070a 100%);
+    --card-dark: #121520;
+    --orange-primary: #ff6a3d;
+    --text-main: #ffffff;
+    --text-muted: #6b7588;
+    --accent-gradient: linear-gradient(135deg, #ff6a3d 0%, #9a4eff 100%);
+    --accent-blue: #0088cc;
+    --danger: #ff4d6d;
+    --success: #28a745;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg-dark);
+    background-image: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-main);
+    padding-bottom: 100px;
+}
+
+/* HEADER PROFILE */
+.profile-header {
+    background: linear-gradient(180deg, #1c253d 0%, var(--bg-dark) 100%);
+    padding: 50px 20px 40px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.avatar-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+}
+
+.avatar-main {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid var(--orange-primary);
+    padding: 4px;
+    background: var(--bg-dark);
+}
+
+.vip-floating-badge {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: var(--accent-gradient);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 4px 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    letter-spacing: 0.5px;
+}
+
+.user-phone {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+/* MENU GRID */
+.menu-section {
+    padding: 25px 20px;
+}
+
+.menu-group-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.menu-list {
+    background: var(--card-dark);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu-item:active { background: rgba(255,255,255,0.04); }
+.menu-item:last-child { border-bottom: none; }
+
+.menu-icon { width: 35px; font-size: 22px; }
+.menu-label { flex: 1; font-size: 15px; font-weight: 600; }
+.menu-arrow { color: var(--text-muted); font-size: 18px; opacity: 0.5; }
+
+/* SPECIAL BUTTONS */
+.telegram-card {
+    background: rgba(0, 136, 204, 0.06);
+    border: 1px solid rgba(0, 136, 204, 0.3);
+    color: #38bdf8;
+}
+
+.logout-card {
+    background: rgba(255, 77, 109, 0.04);
+    border: 1px solid rgba(255, 77, 109, 0.2);
+    color: var(--danger);
+}
+
+/* VUE PORTEFEUILLE (PANEL MASQUÉ PAR DÉFAUT) */
+#walletView {
+    display: none;
+    padding: 20px;
+}
+
+.wallet-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.back-wallet-btn {
+    font-size: 24px;
+    color: var(--orange-primary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.wallet-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.balance-card {
+    background: var(--accent-gradient);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 25px rgba(255, 106, 61, 0.2);
+}
+
+.balance-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+    opacity: 0.9;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.balance-amount {
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.transactions-title {
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.transaction-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.transaction-item {
+    background: var(--card-dark);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+.tx-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tx-desc {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.tx-date {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.tx-amount {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.tx-amount.positive { color: var(--success); }
+.tx-amount.negative { color: var(--danger); }
+
+/* BARRE DE NAVIGATION COMMUNE */
+.menu-bottom {
+    position: fixed; 
+    bottom: 0; 
+    width: 100%;
+    background: #0b0e17; 
+    display: flex; 
+    justify-content: space-around;
+    padding: 12px 0 28px; 
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 1000;
+}
+
+.menu-item-nav { 
+    color: var(--text-muted); 
+    text-align: center; 
+    font-size: 11px; 
+    text-decoration: none; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    cursor: pointer;
+}
+
+.menu-item-nav.active { color: var(--orange-primary); }
+.menu-item-nav span { display: block; font-size: 20px; font-style: normal; }
+
+.hidden { display: none !important; }
+</style>
+</head>
+
+<body>
+
+<!-- SECTION PROFIL PRINCIPALE -->
+<div id="mainProfileView">
+    <div class="profile-header">
+        <div class="avatar-container">
+            <img id="avatar" class="avatar-main" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+            <div class="vip-floating-badge" id="memberBadge">MEMBRE</div>
+        </div>
+        <div class="user-phone" id="phone">...</div>
+    </div>
+
+    <div class="menu-section">
+        
+        <div class="menu-group-title">Réseau & Gains</div>
+        <div class="menu-list">
+            <div class="menu-item" onclick="location.href='team.html'">
+                <div class="menu-icon">👥</div>
+                <div class="menu-label">Mon Équipe</div>
+                <div class="menu-arrow">›</div>
+            </div>
+            <div class="menu-item" onclick="location.href='product.html'">
+                <div class="menu-icon">🚀</div>
+                <div class="menu-label">Mes Produits</div>
+                <div class="menu-arrow">›</div>
+            </div>
+            <div class="menu-item" onclick="location.href='team.html'">
+                <div class="menu-icon">🎁</div>
+                <div class="menu-label">Inviter des amis</div>
+                <div class="menu-arrow">›</div>
+            </div>
+        </div>
+
+        <div class="menu-group-title">Finances</div>
+        <div class="menu-list">
+            <!-- Ouvre le portefeuille intégré dynamiquement -->
+            <div class="menu-item" onclick="openWallet()">
+                <div class="menu-icon">💳</div>
+                <div class="menu-label">Portefeuille (Solde)</div>
+                <div class="menu-arrow">›</div>
+            </div>
+        </div>
+
+        <div class="menu-group-title">Support & Session</div>
+        <div class="menu-list">
+            <div class="menu-item telegram-card" onclick="openTelegramGroup()">
+                <div class="menu-icon">📢</div>
+                <div class="menu-label">Groupe Telegram Officiel</div>
+                <div class="menu-arrow">↗</div>
+            </div>
+            <div class="menu-item telegram-card" onclick="openTelegramSupport()" style="margin-top: 8px;">
+                <div class="menu-icon">✈️</div>
+                <div class="menu-label">Support Client (servi_ce09)</div>
+                <div class="menu-arrow">↗</div>
+            </div>
+            <div class="menu-item logout-card" onclick="logout()" style="margin-top: 15px;">
+                <div class="menu-icon">🚪</div>
+                <div class="menu-label">Déconnexion</div>
+                <div class="menu-arrow"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- VUE SECONDAIRE : PORTEFEUILLE & HISTORIQUE (SANS CHANGER DE PAGE) -->
+<div id="walletView">
+    <div class="wallet-header">
+        <button class="back-wallet-btn" onclick="closeWallet()">‹</button>
+        <h2>MON PORTEFEUILLE</h2>
+    </div>
+
+    <div class="balance-card">
+        <div class="balance-title">Solde Actuel</div>
+        <div class="balance-amount" id="walletBalance">0 XOF</div>
+    </div>
+
+    <div class="transactions-title">Historique des Transactions</div>
+    <div class="transaction-list" id="transactionContainer">
+        <div style="text-align: center; color: var(--text-muted); padding: 20px;">Chargement...</div>
+    </div>
+</div>
+
+<!-- BARRE DE NAVIGATION FIXE -->
+<div class="menu-bottom" id="bottomNav">
+    <div class="menu-item-nav" onclick="location.href='dashboard.html'"><span>🏠</span>Accueil</div>
+    <div class="menu-item-nav" onclick="location.href='product.html'"><span>🎓</span>Investir</div>
+    <div class="menu-item-nav" onclick="location.href='team.html'"><span>👥</span>Équipe</div>
+    <div class="menu-item-nav active"><span>👤</span>Profil</div>
+</div>
+
+<script>
+const client = supabase.createClient(
+    "https://ycswpdydsgoqplkqtpsd.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inljc3dwZHlkc2dvcXBsa3F0cHNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NjY4MTcsImV4cCI6MjA5MDU0MjgxN30.67bBMdHtcGFIJuZuY_Xd4hBN4hj86JjHVXGN3oPbKMA"
+);
+
+async function loadProfile() {
+    let userId = localStorage.getItem("user_id");
+    if(!userId) return;
+
+    const { data: user } = await client.from("users").select("phone").eq("id", userId).single();
+    if(user) document.getElementById("phone").innerText = user.phone;
+}
+
+// Ouvre le portefeuille intégré et charge les données de la table transactions
+async function openWallet() {
+    let userId = localStorage.getItem("user_id");
+    if(!userId) {
+        alert("Session expirée.");
+        location.href = "login.html";
+        return;
+    }
+
+    // Basculer l'affichage des vues
+    document.getElementById("mainProfileView").classList.add("hidden");
+    document.getElementById("walletView").style.display = "block";
+
+    // Récupérer les transactions depuis la table transactions
+    const { data: transactions, error } = await client
+        .from("transactions")
+        .select("*")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
+
+    const container = document.getElementById("transactionContainer");
+    container.innerHTML = "";
+
+    if (error) {
+        container.innerHTML = `<div style="text-align: center; color: var(--danger); padding: 20px;">Erreur de chargement</div>`;
+        return;
+    }
+
+    if (!transactions || transactions.length === 0) {
+        container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 20px;">Aucune transaction pour le moment</div>`;
+        document.getElementById("walletBalance").innerText = "0 XOF";
+        return;
+    }
+
+    // Calculer un solde total approximatif basé sur les montants de la table transactions
+    let totalBalance = transactions.reduce((acc, tx) => {
+        return tx.status === 'completed' ? acc + (tx.amount || 0) : acc;
+    }, 0);
+    document.getElementById("walletBalance").innerText = totalBalance.toLocaleString() + " XOF";
+
+    // Afficher chaque transaction
+    transactions.forEach(tx => {
+        let isPositive = tx.type === 'deposit' || tx.amount > 0;
+        let sign = isPositive ? "+" : "";
+        let amountClass = isPositive ? "positive" : "negative";
+
+        let dateFormatted = new Date(tx.created_at).toLocaleDateString('fr-FR', {
+            day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+        });
+
+        let itemHTML = `
+            <div class="transaction-item">
+                <div class="tx-info">
+                    <span class="tx-desc">${tx.description || tx.type || 'Transaction'}</span>
+                    <span class="tx-date">${dateFormatted} • <i style="text-transform:uppercase;">${tx.status || 'pending'}</i></span>
+                </div>
+                <div class="tx-amount ${amountClass}">${sign}${tx.amount ? tx.amount.toLocaleString() : 0} XOF</div>
+            </div>
+        `;
+        container.innerHTML += itemHTML;
+    });
+}
+
+// Bouton retour pour revenir au profil principal
+function closeWallet() {
+    document.getElementById("walletView").style.display = "none";
+    document.getElementById("mainProfileView").classList.remove("hidden");
+}
+
+// Ouvre le groupe de discussion Telegram de l'application
+function openTelegramGroup(){
+    window.open("https://t.me/+xLa-SkrW3McwYmRk", "_blank");
+}
+
+// Ouvre la discussion privée directe avec le service client
+function openTelegramSupport(){
+    window.open("https://t.me/servi_ce09", "_blank");
+}
+
+function logout(){
+    if(confirm("Voulez-vous vraiment vous déconnecter ?")) {
+        localStorage.clear();
+        location.href = "login.html";
+    }
+}
+
+loadProfile();
+</script>
+
+</body>
+  </html>
+  
