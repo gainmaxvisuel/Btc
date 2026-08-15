@@ -278,7 +278,7 @@ function selectOp(name, el) {
 
 function calculateFees() {
     const amt = parseFloat(document.getElementById("amount").value) || 0;
-    const fees = Math.round(amt * 0.07);
+    const fees = Math.round(amt * 0.15);
     const net = amt - fees;
 
     document.getElementById("resBrut").innerText = amt.toLocaleString() + " XOF";
