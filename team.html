@@ -295,7 +295,7 @@ async function loadData() {
     // 1. Récupérer le code de parrainage et générer le nouveau lien Render
     const { data: user } = await client.from("users").select("referral_code").eq("id", userId).single();
     if(user) {
-        document.getElementById("refLink").innerText = `https://btc-59ll.onrender.com/index.html?ref=${user.referral_code}`;
+        document.getElementById("refLink").innerText = `https://btc-famu.onrender.com/index.html?ref=${user.referral_code}`;
     }
 
     // 2. Récupérer l'équipe
